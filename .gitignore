@@ -1,6 +1,15 @@
+.vscode
+
 cspr/dist
 cspr/node_modules
 cspr/target
 cspr/pkg
 cspr/decimal/target
 cspr/decimal/decimal_core/target
+
+a0/dist
+a0/node_modules
+a0/target
+a0/pkg
+a0/decimal/target
+a0/decimal/decimal_core/target
