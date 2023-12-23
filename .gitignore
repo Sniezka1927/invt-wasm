@@ -1,0 +1,6 @@
+cspr/dist
+cspr/node_modules
+cspr/target
+cspr/pkg
+cspr/decimal/target
+cspr/decimal/decimal_core/target
