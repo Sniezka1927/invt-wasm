@@ -129,17 +129,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "hello_world"
-version = "0.1.0"
-dependencies = [
- "borsh",
- "decimal",
- "traceable_result",
- "uint",
- "wasm-bindgen",
-]
-
-[[package]]
 name = "hex"
 version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -152,6 +141,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "276ec31bcb4a9ee45f58bec6f9ec700ae4cf4f4f8f2fa7e06cb406bd5ffdd770"
 dependencies = [
  "num-traits",
+]
+
+[[package]]
+name = "invt"
+version = "0.1.0"
+dependencies = [
+ "borsh",
+ "decimal",
+ "traceable_result",
+ "uint",
+ "wasm-bindgen",
 ]
 
 [[package]]
