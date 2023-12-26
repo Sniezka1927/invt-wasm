@@ -47,6 +47,7 @@ pub struct A {
 }
 
 // !OK
+// https://github.com/rustwasm/wasm-bindgen/issues/111
 // #[wasm_bindgen]
 // impl A {
 //     #[wasm_bindgen(constructor)]
