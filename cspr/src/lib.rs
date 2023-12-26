@@ -45,6 +45,21 @@ impl Primitive {
 pub struct A {
     v: U256,
 }
+
+// !OK
+// #[wasm_bindgen]
+// impl A {
+//     #[wasm_bindgen(constructor)]
+//     pub fn new(v: u64) -> A {
+//         A::new(v)
+//     }
+
+//     #[wasm_bindgen(getter)]
+//     pub fn v(&self) -> U256 {
+//         self.v
+//     }
+// }
+
 // OK
 #[wasm_bindgen]
 #[derive(OdraType, Default, Debug)]
