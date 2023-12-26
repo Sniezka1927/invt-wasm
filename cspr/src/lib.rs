@@ -27,6 +27,19 @@ pub struct Primitive {
     v: u64,
 }
 
+#[wasm_bindgen]
+impl Primitive {
+    #[wasm_bindgen(constructor)]
+    pub fn new(v: u64) -> Primitive {
+        Primitive { v }
+    }
+
+    #[wasm_bindgen(getter)]
+    pub fn v(&self) -> u64 {
+        self.v
+    }
+}
+
 // OK
 #[wasm_bindgen]
 pub struct A {
