@@ -1,2 +1,3 @@
-import { greet } from "./pkg";
-import { Percentage } from "./pkg";
+import { D } from "./pkg/invt.js";
+
+console.log(`Decimal = ${D}`);
