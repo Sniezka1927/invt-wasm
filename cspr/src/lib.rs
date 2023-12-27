@@ -17,6 +17,7 @@ use odra::{
 };
 
 construct_uint! {
+    #[wasm_bindgen]
     #[derive(BorshSerialize, BorshDeserialize)]
     pub struct U448T(7);
 }
@@ -40,26 +41,25 @@ impl Primitive {
     }
 }
 
-// OK
 #[wasm_bindgen]
-pub struct A {
-    v: U256,
+pub struct UINT {
+    v: U448T,
 }
 
 // !OK
 // https://github.com/rustwasm/wasm-bindgen/issues/111
-// #[wasm_bindgen]
-// impl A {
-//     #[wasm_bindgen(constructor)]
-//     pub fn new(v: u64) -> A {
-//         A::new(v)
-//     }
+#[wasm_bindgen]
+impl UINT {
+    #[wasm_bindgen(constructor)]
+    pub fn new(v: u64) -> UINT {
+        UINT::new(v)
+    }
 
-//     #[wasm_bindgen(getter)]
-//     pub fn v(&self) -> U256 {
-//         self.v
-//     }
-// }
+    #[wasm_bindgen(getter)]
+    pub fn v(&self) -> U448T {
+        self.v
+    }
+}
 
 // OK
 #[wasm_bindgen]
