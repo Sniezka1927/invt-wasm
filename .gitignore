@@ -19,3 +19,10 @@ serde-cspr/target
 serde-cspr/decimal/target
 serde-cspr/decimal/decimal_core/target
 serde-cspr/traceable_result/*
+
+serde-a0/dist
+serde-a0/node_modules
+serde-a0/target
+serde-a0/decimal/target
+serde-a0/decimal/decimal_core/target
+serde-a0/traceable_result/*
