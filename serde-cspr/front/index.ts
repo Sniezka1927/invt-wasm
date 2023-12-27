@@ -5,8 +5,6 @@ import {
   send_example_to_js,
 } from "../pkg/invt.js";
 
-// todo start it
-
 const init = async () => {
   // let decimalInstance = new D(125);
   let received = send_example_to_js();

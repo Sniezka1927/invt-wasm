@@ -3,7 +3,7 @@
   "scripts": {
     "build": "wasm-pack build",
     "serve": "webpack serve",
-    "start": "node --experimental-wasm-modules index.js",
+    "start": "node --experimental-wasm-modules ./target/index.js",
     "ts": "npx tsc && node --experimental-wasm-modules ./target/index.js"
   },
   "devDependencies": {
