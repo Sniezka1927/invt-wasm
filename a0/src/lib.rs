@@ -21,19 +21,36 @@ construct_uint! {
 pub struct Primitive {
     v: u64,
 }
-
 // OK
 #[wasm_bindgen]
-pub struct A {
-    v: u128,
+#[decimal(24, u128)]
+#[derive(Default, Debug, PartialEq, Eq, Copy, Clone)]
+pub struct D {
+    v: u64,
 }
 
-// OK
 #[wasm_bindgen]
-#[decimal(24)]
-#[derive(Default, Debug, PartialEq, Copy, Clone)]
-pub struct D {
-    v: u128,
+impl D {
+    #[wasm_bindgen(constructor)]
+    pub fn new(v: u64) -> D {
+        D { v }
+    }
+
+    #[wasm_bindgen(getter)]
+    pub fn v(&self) -> u64 {
+        self.v
+    }
+
+    #[wasm_bindgen(setter)]
+    pub fn set_v(&mut self, new_v: u64) {
+        self.v = new_v;
+    }
+}
+#[wasm_bindgen]
+pub fn multiply(a: u64, b: u64) -> u64 {
+    let tmp_a = D::new(a);
+    let tmp_b = D::new(b);
+    tmp_a.mul_up(tmp_b).v()
 }
 
 pub fn traceable_result() -> TrackableResult<D> {
