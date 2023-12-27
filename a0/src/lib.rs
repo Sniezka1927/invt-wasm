@@ -23,7 +23,7 @@ pub struct Primitive {
 }
 // OK
 #[wasm_bindgen]
-#[decimal(24, u128)]
+#[decimal(24)]
 #[derive(Default, Debug, PartialEq, Eq, Copy, Clone)]
 pub struct D {
     v: u64,
@@ -46,11 +46,28 @@ impl D {
         self.v = new_v;
     }
 }
+
 #[wasm_bindgen]
-pub fn multiply(a: u64, b: u64) -> u64 {
-    let tmp_a = D::new(a);
-    let tmp_b = D::new(b);
-    tmp_a.mul_up(tmp_b).v()
+pub fn add(a: D, b: D) -> D {
+    a.checked_add(b).unwrap()
+}
+
+#[wasm_bindgen]
+pub fn multiply(a: D, b: D) -> D {
+    a.mul_up(b)
+}
+
+#[wasm_bindgen]
+pub fn big_mul(a: D, b: D) -> D {
+    a.big_mul(b)
+}
+#[wasm_bindgen]
+pub fn mul_up(a: D, b: D) -> D {
+    a.mul_up(b)
+}
+#[wasm_bindgen]
+pub fn from_integer(a: u64) -> D {
+    D::from_integer(a)
 }
 
 pub fn traceable_result() -> TrackableResult<D> {
