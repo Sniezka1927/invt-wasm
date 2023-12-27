@@ -1,6 +1,5 @@
 import { Primitive as Primitive2 } from "invt";
 import { Primitive } from "./pkg/invt.js";
-
 {
   let primitiveInstance = new Primitive(BigInt(42));
   let value = primitiveInstance.v;
