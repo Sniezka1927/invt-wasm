@@ -1,7 +1,7 @@
-1. Build a0/cspr
+1. Build a0/cspr/serde
 
 ```bash
-wasm-pack build
+npm run build
 ```
 
 2. Make sure that all provided `package.json` has `"type": "module"`, especially in the pkg directory.
@@ -9,5 +9,5 @@ wasm-pack build
 3. Check wasm
 
 ```bash
- node --experimental-wasm-modules index.js
+ npm run ts
 ```

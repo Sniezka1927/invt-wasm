@@ -11,3 +11,11 @@ a0/node_modules
 a0/target
 a0/decimal/target
 a0/decimal/decimal_core/target
+
+
+serde/dist
+serde/node_modules
+serde/target
+serde/decimal/target
+serde/decimal/decimal_core/target
+serde/traceable_result/*
