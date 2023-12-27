@@ -75,29 +75,29 @@ pub fn get_delta_y(
     let liquidity: Liquidity = js_liquidity.into_serde().unwrap();
     let rounding_up: bool = js_rounding_up.into_serde().unwrap();
 
-    // let delta: SqrtPrice = if sqrt_price_a > sqrt_price_b {
-    //     sqrt_price_a - sqrt_price_b
-    // } else {
-    //     sqrt_price_b - sqrt_price_a
-    // };
+    let delta: SqrtPrice = if sqrt_price_a > sqrt_price_b {
+        sqrt_price_a - sqrt_price_b
+    } else {
+        sqrt_price_b - sqrt_price_a
+    };
 
-    // let delta_y = match rounding_up {
-    //     true => delta
-    //         .big_mul_to_value_up(liquidity)
-    //         .checked_add(SqrtPrice::almost_one())
-    //         .unwrap()
-    //         .checked_div(SqrtPrice::one())
-    //         .unwrap(),
-    //     false => delta
-    //         .big_mul_to_value(liquidity)
-    //         .checked_div(SqrtPrice::one())
-    //         .unwrap(),
-    // };
+    let delta_y = match rounding_up {
+        true => delta
+            .big_mul_to_value_up(liquidity)
+            .checked_add(SqrtPrice::almost_one())
+            .unwrap()
+            .checked_div(SqrtPrice::one())
+            .unwrap(),
+        false => delta
+            .big_mul_to_value(liquidity)
+            .checked_div(SqrtPrice::one())
+            .unwrap(),
+    };
 
-    // let result: TokenAmount = TokenAmount::new(delta_y.try_into().unwrap());
+    let result: TokenAmount = TokenAmount::new(delta_y.try_into().unwrap());
 
-    // Ok(serde_wasm_bindgen::to_value(&result)?)
-    Ok(serde_wasm_bindgen::to_value(&sqrt_price_a)?)
+    Ok(serde_wasm_bindgen::to_value(&result)?)
+    // Ok(serde_wasm_bindgen::to_value(&sqrt_price_a)?)
 }
 
 pub fn traceable_result() -> TrackableResult<D> {
