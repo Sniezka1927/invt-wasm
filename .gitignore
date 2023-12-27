@@ -13,9 +13,9 @@ a0/decimal/target
 a0/decimal/decimal_core/target
 
 
-serde/dist
-serde/node_modules
-serde/target
-serde/decimal/target
-serde/decimal/decimal_core/target
-serde/traceable_result/*
+serde-cspr/dist
+serde-cspr/node_modules
+serde-cspr/target
+serde-cspr/decimal/target
+serde-cspr/decimal/decimal_core/target
+serde-cspr/traceable_result/*
