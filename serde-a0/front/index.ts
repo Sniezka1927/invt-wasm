@@ -8,9 +8,13 @@ import {
   send_example_to_js,
 } from "../pkg/invt.js";
 
+import { default as BN } from "bn.js";
+
 const init = async () => {
   // let decimalInstance = new D(125);
   // Set serializer config
+  let test = new BN(1000);
+  console.log(typeof test);
   let received = send_example_to_js();
   console.log(received);
   let result = receive_example_from_js(received);
