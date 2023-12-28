@@ -10,6 +10,7 @@ import {
 
 const init = async () => {
   // let decimalInstance = new D(125);
+  // Set serializer config
   let received = send_example_to_js();
   console.log(received);
   let result = receive_example_from_js(received);
@@ -17,7 +18,7 @@ const init = async () => {
   // Handling structs
   {
     let tokenAmount: TokenAmount = {
-      v: 1,
+      v: BigInt(1),
     };
 
     get_custom_struct(tokenAmount);
@@ -25,14 +26,18 @@ const init = async () => {
   // Math examples
   {
     // get delta y
-
     let sqrtPriceA: SqrtPrice = {
-      v: 1000000000000000000000000,
+      v: BigInt(234878324943782000000000000),
     };
-    let sqrtPriceB: SqrtPrice = { v: 30 };
-    let liquidity: Liquidity = { v: 1000000 };
+    let sqrtPriceB: SqrtPrice = { v: BigInt(87854456421658000000000000) };
+    let liquidity: Liquidity = { v: BigInt(983983249092) };
     let delta_y_up = get_delta_y(sqrtPriceA, sqrtPriceB, liquidity, true);
+    let delta_y_down = get_delta_y(sqrtPriceA, sqrtPriceB, liquidity, false);
     console.log(delta_y_up);
+    console.log(delta_y_down);
+    // // 144669023.842474597804911408
+    // assert_eq!(result_down, TokenAmount(144669023));
+    // assert_eq!(result_up, TokenAmount(144669024));
   }
 };
 

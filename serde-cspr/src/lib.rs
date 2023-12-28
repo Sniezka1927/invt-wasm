@@ -104,7 +104,7 @@ pub fn get_delta_y(
     sqrt_price_b: SqrtPrice,
     liquidity: Liquidity,
     rounding_up: bool,
-) -> Result<JsValue, JsValue> {
+) -> Result<TokenAmount, JsValue> {
     let delta: SqrtPrice = if sqrt_price_a > sqrt_price_b {
         sqrt_price_a - sqrt_price_b
     } else {
@@ -126,7 +126,8 @@ pub fn get_delta_y(
 
     let result: TokenAmount = TokenAmount::new(TokenAmount::checked_from_value(delta_y).unwrap());
 
-    Ok(serde_wasm_bindgen::to_value(&result)?)
+    Ok(result)
+    // Ok(serde_wasm_bindgen::to_value(&result))
 }
 
 pub fn traceable_result() -> TrackableResult<D> {

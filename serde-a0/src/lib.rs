@@ -8,6 +8,7 @@ use core::convert::{TryFrom, TryInto};
 use traceable_result::*;
 
 use serde::{Deserialize, Serialize};
+use serde_wasm_bindgen::Serializer;
 use tsify::JsValueSerdeExt;
 use tsify::Tsify;
 use wasm_bindgen::prelude::*;
@@ -17,6 +18,13 @@ use wasm_bindgen::prelude::*;
 #[derive(Default, Debug, PartialEq, Eq, Copy, Clone, Serialize, Deserialize)]
 pub struct D {
     v: u128,
+}
+
+#[decimal(0)]
+#[derive(Default, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Serialize, Deserialize, Tsify)]
+#[tsify(into_wasm_abi, from_wasm_abi)]
+pub struct Test {
+    pub v: u64,
 }
 
 // #[wasm_bindgen]
@@ -58,22 +66,23 @@ pub fn receive_example_from_js(val: JsValue) -> Result<JsValue, JsValue> {
 
 #[wasm_bindgen]
 pub fn get_custom_struct(a: JsValue) {
-    // let received_value: TokenAmount = serde_wasm_bindgen::from_value(a).unwrap();
-    let _: TokenAmount = a.into_serde().unwrap();
+    let received_value: TokenAmount = serde_wasm_bindgen::from_value(a).unwrap();
+
+    // let _: TokenAmount = a.into_serde().unwrap();
     // let received_struct: SqrtPrice = a.into_serde().expect("Failed to deserialize");
 }
 
 #[wasm_bindgen]
 pub fn get_delta_y(
-    sqrt_price_a: SqrtPrice,
-    sqrt_price_b: SqrtPrice,
-    liquidity: Liquidity,
-    rounding_up: bool,
+    js_sqrt_price_a: JsValue,
+    js_sqrt_price_b: JsValue,
+    js_liquidity: JsValue,
+    js_rounding_up: JsValue,
 ) -> Result<JsValue, JsValue> {
-    // let sqrt_price_a: SqrtPrice = js_sqrt_price_a.into_serde().unwrap();
-    // let sqrt_price_b: SqrtPrice = js_sqrt_price_b.into_serde().unwrap();
-    // let liquidity: Liquidity = js_liquidity.into_serde().unwrap();
-    // let rounding_up: bool = js_rounding_up.into_serde().unwrap();
+    let sqrt_price_a: SqrtPrice = serde_wasm_bindgen::from_value(js_sqrt_price_a)?;
+    let sqrt_price_b: SqrtPrice = serde_wasm_bindgen::from_value(js_sqrt_price_b)?;
+    let liquidity: Liquidity = serde_wasm_bindgen::from_value(js_liquidity)?;
+    let rounding_up: bool = serde_wasm_bindgen::from_value(js_rounding_up)?;
 
     let delta: SqrtPrice = if sqrt_price_a > sqrt_price_b {
         sqrt_price_a - sqrt_price_b
