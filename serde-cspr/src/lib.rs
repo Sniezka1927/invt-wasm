@@ -100,17 +100,11 @@ pub fn get_custom_struct(a: SqrtPrice) {
 
 #[wasm_bindgen]
 pub fn get_delta_y(
-    js_sqrt_price_a: JsValue,
-    js_sqrt_price_b: JsValue,
-    js_liquidity: JsValue,
-    js_rounding_up: JsValue,
+    sqrt_price_a: SqrtPrice,
+    sqrt_price_b: SqrtPrice,
+    liquidity: Liquidity,
+    rounding_up: bool,
 ) -> Result<JsValue, JsValue> {
-    // let sqrt_price_a: SqrtPrice = serde_wasm_bindgen::from_value(js_sqrt_price_a)?;
-    let sqrt_price_a: SqrtPrice = js_sqrt_price_a.into_serde().unwrap();
-    let sqrt_price_b: SqrtPrice = serde_wasm_bindgen::from_value(js_sqrt_price_b)?;
-    let liquidity: Liquidity = serde_wasm_bindgen::from_value(js_liquidity)?;
-    let rounding_up: bool = serde_wasm_bindgen::from_value(js_rounding_up)?;
-
     let delta: SqrtPrice = if sqrt_price_a > sqrt_price_b {
         sqrt_price_a - sqrt_price_b
     } else {

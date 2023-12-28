@@ -27,10 +27,10 @@ const init = async () => {
     // get delta y
 
     let sqrtPriceA: SqrtPrice = {
-      v: 25,
+      v: 1000000000000000000000000,
     };
     let sqrtPriceB: SqrtPrice = { v: 30 };
-    let liquidity: Liquidity = { v: 1 };
+    let liquidity: Liquidity = { v: 1000000 };
     let delta_y_up = get_delta_y(sqrtPriceA, sqrtPriceB, liquidity, true);
     console.log(delta_y_up);
   }
