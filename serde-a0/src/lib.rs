@@ -5,10 +5,12 @@ extern crate alloc;
 use crate::alloc::string::ToString;
 use core::convert::{TryFrom, TryInto};
 // Traceable result
-use traceable_result::*;
-
+// use ink::storage::traits::StorageLayout;
+use scale::{Decode, Encode};
+// use scale_info::TypeInfo;
 use serde::{Deserialize, Serialize};
 use serde_wasm_bindgen::Serializer;
+use traceable_result::*;
 use tsify::JsValueSerdeExt;
 use tsify::Tsify;
 use wasm_bindgen::prelude::*;
@@ -28,9 +30,25 @@ pub struct Test {
     pub v: u64,
 }
 
-// #[wasm_bindgen]
 #[decimal(0)]
-#[derive(Default, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Serialize, Deserialize, Tsify)]
+#[derive(
+    Default,
+    Debug,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Serialize,
+    Deserialize,
+    Tsify,
+    scale::Encode,
+    scale::Decode,
+)]
+#[cfg_attr(
+    feature = "std",
+    derive(scale_info::TypeInfo, ink::storage::traits::StorageLayout)
+)]
 #[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct TokenAmount {
     #[tsify(type = "BigInt")]
