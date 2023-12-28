@@ -24,6 +24,7 @@ pub struct D {
 #[derive(Default, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Serialize, Deserialize, Tsify)]
 #[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct Test {
+    #[tsify(type = "BigInt")]
     pub v: u64,
 }
 
@@ -32,6 +33,7 @@ pub struct Test {
 #[derive(Default, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Serialize, Deserialize, Tsify)]
 #[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct TokenAmount {
+    #[tsify(type = "BigInt")]
     pub v: u128,
 }
 
@@ -39,6 +41,7 @@ pub struct TokenAmount {
 #[derive(Default, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Serialize, Deserialize, Tsify)]
 #[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct SqrtPrice {
+    #[tsify(type = "BigInt")]
     pub v: u128,
 }
 
@@ -46,6 +49,7 @@ pub struct SqrtPrice {
 #[derive(Default, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Serialize, Deserialize, Tsify)]
 #[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct Liquidity {
+    #[tsify(type = "BigInt")]
     pub v: u128,
 }
 
