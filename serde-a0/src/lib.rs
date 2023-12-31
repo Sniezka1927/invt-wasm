@@ -9,7 +9,6 @@ use core::convert::{TryFrom, TryInto};
 use scale::{Decode, Encode};
 // use scale_info::TypeInfo;
 use serde::{Deserialize, Serialize};
-use serde_wasm_bindgen::Serializer;
 use traceable_result::*;
 use tsify::JsValueSerdeExt;
 use tsify::Tsify;
@@ -28,6 +27,27 @@ pub struct D {
 pub struct Test {
     #[tsify(type = "BigInt")]
     pub v: u64,
+}
+
+impl From<Test> for JsValue {
+    fn from(obj: Test) -> Self {
+        JsValue::from_serde(&obj).unwrap()
+    }
+}
+
+impl From<JsValue> for Test {
+    fn from(value: JsValue) -> Self {
+        match value.into_serde() {
+            Ok(result) => result,
+            Err(error) => {
+                // console.error("Error deserializing MyStruct:", error);
+                // You can choose to return a default value or panic here based on your needs
+                // For example, panic!("Error deserializing MyStruct: {:?}", error);
+                // Or return a default value like MyStruct { value: 0 }
+                Test { v: 0 }
+            }
+        }
+    }
 }
 
 #[decimal(0)]
@@ -51,23 +71,23 @@ pub struct Test {
 )]
 #[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct TokenAmount {
-    #[tsify(type = "BigInt")]
+    #[tsify(type = "BN")]
     pub v: u128,
 }
 
-#[decimal(24)]
-#[derive(Default, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Serialize, Deserialize, Tsify)]
-#[tsify(into_wasm_abi, from_wasm_abi)]
-pub struct SqrtPrice {
-    #[tsify(type = "BigInt")]
-    pub v: u128,
-}
+// #[decimal(24)]
+// #[derive(Default, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Serialize, Deserialize, Tsify)]
+// #[tsify(into_wasm_abi, from_wasm_abi)]
+// pub struct SqrtPrice {
+//     #[tsify(type = "BN")]
+//     pub v: u128,
+// }
 
 #[decimal(6)]
 #[derive(Default, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Serialize, Deserialize, Tsify)]
 #[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct Liquidity {
-    #[tsify(type = "BigInt")]
+    #[tsify(type = "BN")]
     pub v: u128,
 }
 
@@ -86,25 +106,33 @@ pub fn receive_example_from_js(val: JsValue) -> Result<JsValue, JsValue> {
     Ok(serde_wasm_bindgen::to_value(&result)?)
 }
 
-#[wasm_bindgen]
-pub fn get_custom_struct(a: JsValue) {
-    let received_value: TokenAmount = serde_wasm_bindgen::from_value(a).unwrap();
-
-    // let _: TokenAmount = a.into_serde().unwrap();
-    // let received_struct: SqrtPrice = a.into_serde().expect("Failed to deserialize");
+#[decimal(24)]
+#[derive(Default, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Serialize, Deserialize, Tsify)]
+#[tsify(into_wasm_abi, from_wasm_abi)]
+pub struct SqrtPrice {
+    // #[tsify(type = "BN")]
+    #[serde(rename = "v")]
+    pub v: u128,
 }
 
 #[wasm_bindgen]
+pub fn get_custom_struct(a: SqrtPrice) {}
+
+#[wasm_bindgen]
 pub fn get_delta_y(
-    js_sqrt_price_a: JsValue,
-    js_sqrt_price_b: JsValue,
-    js_liquidity: JsValue,
-    js_rounding_up: JsValue,
+    // js_sqrt_price_a: JsValue,
+    // js_sqrt_price_b: JsValue,
+    // js_liquidity: JsValue,
+    // js_rounding_up: JsValue,
+    sqrt_price_a: SqrtPrice,
+    sqrt_price_b: SqrtPrice,
+    liquidity: Liquidity,
+    rounding_up: bool,
 ) -> Result<JsValue, JsValue> {
-    let sqrt_price_a: SqrtPrice = serde_wasm_bindgen::from_value(js_sqrt_price_a)?;
-    let sqrt_price_b: SqrtPrice = serde_wasm_bindgen::from_value(js_sqrt_price_b)?;
-    let liquidity: Liquidity = serde_wasm_bindgen::from_value(js_liquidity)?;
-    let rounding_up: bool = serde_wasm_bindgen::from_value(js_rounding_up)?;
+    // let sqrt_price_a: SqrtPrice = serde_wasm_bindgen::from_value(js_sqrt_price_a)?;
+    // let sqrt_price_b: SqrtPrice = serde_wasm_bindgen::from_value(js_sqrt_price_b)?;
+    // let liquidity: Liquidity = serde_wasm_bindgen::from_value(js_liquidity)?;
+    // let rounding_up: bool = serde_wasm_bindgen::from_value(js_rounding_up)?;
 
     let delta: SqrtPrice = if sqrt_price_a > sqrt_price_b {
         sqrt_price_a - sqrt_price_b
