@@ -23,7 +23,7 @@ const init = async () => {
     // };
 
     let a: SqrtPrice = {
-      v: 4503599627370496,
+      v: BigInt(4503599627370496),
     };
     get_custom_struct(a);
   }

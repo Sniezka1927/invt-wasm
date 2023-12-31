@@ -4,10 +4,7 @@ use decimal::*;
 extern crate alloc;
 use crate::alloc::string::ToString;
 use core::convert::{TryFrom, TryInto};
-// Traceable result
-// use ink::storage::traits::StorageLayout;
-use scale::{Decode, Encode};
-// use scale_info::TypeInfo;
+use js_sys::BigInt;
 use serde::{Deserialize, Serialize};
 use traceable_result::*;
 use tsify::JsValueSerdeExt;
@@ -27,27 +24,6 @@ pub struct D {
 pub struct Test {
     #[tsify(type = "BigInt")]
     pub v: u64,
-}
-
-impl From<Test> for JsValue {
-    fn from(obj: Test) -> Self {
-        JsValue::from_serde(&obj).unwrap()
-    }
-}
-
-impl From<JsValue> for Test {
-    fn from(value: JsValue) -> Self {
-        match value.into_serde() {
-            Ok(result) => result,
-            Err(error) => {
-                // console.error("Error deserializing MyStruct:", error);
-                // You can choose to return a default value or panic here based on your needs
-                // For example, panic!("Error deserializing MyStruct: {:?}", error);
-                // Or return a default value like MyStruct { value: 0 }
-                Test { v: 0 }
-            }
-        }
-    }
 }
 
 #[decimal(0)]
@@ -74,14 +50,6 @@ pub struct TokenAmount {
     #[tsify(type = "BN")]
     pub v: u128,
 }
-
-// #[decimal(24)]
-// #[derive(Default, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Serialize, Deserialize, Tsify)]
-// #[tsify(into_wasm_abi, from_wasm_abi)]
-// pub struct SqrtPrice {
-//     #[tsify(type = "BN")]
-//     pub v: u128,
-// }
 
 #[decimal(6)]
 #[derive(Default, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Serialize, Deserialize, Tsify)]
@@ -110,8 +78,7 @@ pub fn receive_example_from_js(val: JsValue) -> Result<JsValue, JsValue> {
 #[derive(Default, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Serialize, Deserialize, Tsify)]
 #[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct SqrtPrice {
-    // #[tsify(type = "BN")]
-    #[serde(rename = "v")]
+    #[tsify(type = "bigint")]
     pub v: u128,
 }
 
