@@ -12,6 +12,10 @@ const init = async () => {
   // Set serializer config
   let test = new BN("9007199254740992");
   console.log(typeof test);
+  console.log(test);
+  let test2 = BigInt(4503599627370496);
+  console.log(typeof test2);
+  console.log(test2);
   let received = send_example_to_js();
   console.log(received);
   let result = receive_example_from_js(received);
@@ -23,7 +27,7 @@ const init = async () => {
     // };
 
     let a: SqrtPrice = {
-      v: BigInt(4503599627370496),
+      v: 4503599627370496,
     };
     get_custom_struct(a);
   }

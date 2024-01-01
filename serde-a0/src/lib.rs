@@ -5,6 +5,7 @@ extern crate alloc;
 use crate::alloc::string::ToString;
 use core::convert::{TryFrom, TryInto};
 use js_sys::BigInt;
+// use num_bigint::BigInt;
 use serde::{Deserialize, Serialize};
 use traceable_result::*;
 use tsify::JsValueSerdeExt;
@@ -78,7 +79,7 @@ pub fn receive_example_from_js(val: JsValue) -> Result<JsValue, JsValue> {
 #[derive(Default, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Serialize, Deserialize, Tsify)]
 #[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct SqrtPrice {
-    #[tsify(type = "bigint")]
+    #[tsify(type = "number")]
     pub v: u128,
 }
 

@@ -1,7 +1,8 @@
 {
   "type": "module",
   "scripts": {
-    "build": "wasm-pack build",
+    "build": "wasm-pack build && npm run prepare",
+    "prepare": "jq '. + {\"type\": \"module\"}' pkg/package.json > temp && mv temp pkg/package.json",
     "serve": "webpack serve",
     "start": "node --experimental-wasm-modules ./target/index.js",
     "ts": "npx tsc && node --experimental-wasm-modules ./target/index.js"
