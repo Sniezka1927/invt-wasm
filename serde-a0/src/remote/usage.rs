@@ -8,7 +8,7 @@ use wasm_bindgen::prelude::*;
 
 #[derive(Default, Debug, Copy, Clone, PartialEq, Serialize, Deserialize, Tsify)]
 #[tsify(into_wasm_abi, from_wasm_abi)]
-pub struct LiquidityUsage {
+pub struct StructWithNotOwnedTypes {
     pub liquidity: Liquidity,
     #[serde(with = "NotOwnedTypeDef")]
     pub not_owned_type: NotOwnedType,
