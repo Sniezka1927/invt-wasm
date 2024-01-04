@@ -10,6 +10,11 @@ use core::any;
 
 pub type TrackableResult<T> = Result<T, TrackableError>;
 
+#[derive(Debug, Copy, Clone, Default, PartialEq)]
+pub struct NotOwnedType {
+    pub name: [u8; 32],
+}
+
 #[derive(Debug)]
 pub struct TrackableError {
     pub cause: String,

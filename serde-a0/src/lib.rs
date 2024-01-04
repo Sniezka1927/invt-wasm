@@ -11,7 +11,7 @@ use traceable_result::*;
 use tsify::JsValueSerdeExt;
 use tsify::Tsify;
 use wasm_bindgen::prelude::*;
-
+pub mod remote;
 #[wasm_bindgen]
 #[decimal(1)]
 #[derive(Default, Debug, PartialEq, Eq, Copy, Clone, Serialize, Deserialize)]
